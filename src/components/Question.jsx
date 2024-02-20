@@ -1,6 +1,5 @@
 // TODO: you need to import here 1 hook and 2 components
-import Answers from "./Answers.jsx";
-import QUESTIONS from "../questions.js";
+//ho usato children quindi mi sa che il componente diventa uno!
 import QuestionTimer from "./QuestionTimer.jsx";
 
 export default function Question({ text, children }) {

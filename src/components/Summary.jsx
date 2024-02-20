@@ -21,10 +21,12 @@ export default function Summary() {
         </p>
       </div>
       <ol>
-        <li key>
+        {/* ricordati di passare la key */}
+        <li>
           <h3>CURRENT INDEX</h3>
           <p className="question">QUESTION</p>
-          <p className={cssClass}>Skipped</p>
+          {/* ricordati di aggiungere la cssClass custom sotto */}
+          <p className>Skipped</p>
         </li>
       </ol>
     </div>
