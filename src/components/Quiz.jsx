@@ -8,24 +8,38 @@ import Summary from "./Summary.jsx";
 export default function Quiz() {
   //stato per estrapolare la domanda
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showSummary, setShowSummary] = useState(false);
 
   //funzione per passare alla domanda successiva
   function goToNextQuestion() {
-    //tramite il prev aggiorniamo l'ultima istantanea dello stato precedente
-    setCurrentQuestion((prevQuestion) => {
+    //controllo se ho raggiunto l'ultima domanda
+    if (currentQuestion < QUESTIONS.length - 1) {
+      //tramite il prev aggiorniamo l'ultima istantanea dello stato precedente
       //restituiamo la domanda successiva basata sull'ultimo update dello stato
-      return prevQuestion + 1;
-    });
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setShowSummary(true);
+    }
   }
 
-  if (currentQuestion >= QUESTIONS.length) {
+  const handleTimeGong = () => {
+    //mostra il summary appena arriviamo al "gong"
+    setShowSummary(true);
+  };
+
+  if (showSummary) {
+    //mostra il summary quando showSummary è true
     return <Summary />;
   }
 
   return (
     <div id="quiz">
       {/* passiamo il testo della domanda */}
-      <Question text={QUESTIONS[currentQuestion].text}>
+      <Question
+        key={currentQuestion}
+        text={QUESTIONS[currentQuestion].text}
+        onTimeGong={handleTimeGong}
+      >
         <Answers
           // passiamo le risposte
           answers={QUESTIONS[currentQuestion].answers}
