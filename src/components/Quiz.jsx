@@ -7,16 +7,18 @@ import Answers from "./Answers.jsx";
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  function showNextQuestion() {
-    setCurrentQuestion(currentQuestion + 1);
+  function goToNextQuestion() {
+    setCurrentQuestion((prevQuestion) => {
+      return prevQuestion + 1;
+    });
   }
 
   return (
     <div id="quiz">
-      <Question>
+      <Question text={QUESTIONS[currentQuestion].text}>
         <Answers
           answers={QUESTIONS[currentQuestion].answers}
-          showNextQuestion={showNextQuestion}
+          showNextQuestion={goToNextQuestion}
         />
       </Question>
     </div>

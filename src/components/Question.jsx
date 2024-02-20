@@ -3,11 +3,11 @@ import Answers from "./Answers.jsx";
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 
-export default function Question({ children }) {
+export default function Question({ text, children }) {
   return (
     <div id="question">
       <QuestionTimer />
-      <h2>{QUESTIONS[0].text}</h2>
+      <h2>{text}</h2>
       {children}
     </div>
   );
