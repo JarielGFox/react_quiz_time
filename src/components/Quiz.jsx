@@ -14,7 +14,6 @@ export default function Quiz() {
   function goToNextQuestion() {
     //controllo se ho raggiunto l'ultima domanda
     if (currentQuestion < QUESTIONS.length - 1) {
-      //tramite il prev aggiorniamo l'ultima istantanea dello stato precedente
       //restituiamo la domanda successiva basata sull'ultimo update dello stato
       setCurrentQuestion(currentQuestion + 1);
     } else {
