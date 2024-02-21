@@ -8,7 +8,10 @@ import Summary from "./Summary.jsx";
 export default function Quiz() {
   //stato per estrapolare la domanda
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  //stato per mostrare il summary all'ultima domanda o allo scadere del tempo
   const [showSummary, setShowSummary] = useState(false);
+  //stato per tenere traccia delle domande selezionate dall'utente
+  const [rightAnswer, setRightAnswer] = useState([]);
 
   //funzione per passare alla domanda successiva
   function goToNextQuestion() {
@@ -19,6 +22,24 @@ export default function Quiz() {
     } else {
       setShowSummary(true);
     }
+  }
+
+  //approccio per memorizzare le risposte dell'utente: funzione con due parametri, id e risposta, uso del prev in setRightAnswer per tenere traccia delle risposte, return di COPIA di array di filtered answers con oggetto dentro che punta la risposta corretta (vedi esempio Simone se non ricordi sintassi)
+
+  function handleAnswerClick(questionId, answer) {
+    setRightAnswer((prevAnswers) => {
+      const filteredAnswers = prevAnswers.filter(
+        (answer) => answer.questionId !== answer.questionId
+      );
+      return [
+        ...filteredAnswers,
+        {
+          questionId,
+          answerText: answer.text,
+          isCorrect: answer.correct,
+        },
+      ];
+    });
   }
 
   const handleTimeGong = () => {
@@ -43,6 +64,8 @@ export default function Quiz() {
           // passiamo le risposte
           answers={QUESTIONS[currentQuestion].answers}
           showNextQuestion={goToNextQuestion}
+          onAnswerClick={handleAnswerClick}
+          rightAnswers={rightAnswer}
         />
       </Question>
     </div>

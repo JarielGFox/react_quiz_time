@@ -4,7 +4,7 @@ export default function QuestionTimer({ onTimeGong }) {
   const [timer, setTimer] = useState(20);
 
   useEffect(() => {
-    //se il tempo arriva a 0, suono il gong e mi sbatte a Summary
+    //se il tempo arriva a 0, "suono il gong" e mi sbatte a Summary
     if (timer === 0) {
       onTimeGong();
       return;
