@@ -5,6 +5,9 @@ import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
 import Summary from "./Summary.jsx";
 
+//to do per domani: fare un controllo quando si clicca o no, Click --> reset Barra --> colore bottone ---> prossima domanda
+//non clicco > prossima domanda, clicco, feedback visivo
+
 export default function Quiz() {
   //stato per estrapolare la domanda
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -25,11 +28,10 @@ export default function Quiz() {
   }
 
   //approccio per memorizzare le risposte dell'utente: funzione con due parametri, id e risposta, uso del prev in setRightAnswer per tenere traccia delle risposte, return di COPIA di array di filtered answers con oggetto dentro che punta la risposta corretta (vedi esempio Simone se non ricordi sintassi)
-
   function handleAnswerClick(questionId, answer) {
     setRightAnswer((prevAnswers) => {
       const filteredAnswers = prevAnswers.filter(
-        (answer) => answer.questionId !== answer.questionId
+        (a) => a.questionId !== questionId
       );
       return [
         ...filteredAnswers,
@@ -42,6 +44,7 @@ export default function Quiz() {
     });
   }
 
+  //non deve mostrarti il summary ma mandarti alla prossima domanda
   const handleTimeGong = () => {
     //mostra il summary appena arriviamo al "gong"
     setShowSummary(true);
@@ -65,7 +68,8 @@ export default function Quiz() {
           answers={QUESTIONS[currentQuestion].answers}
           showNextQuestion={goToNextQuestion}
           onAnswerClick={handleAnswerClick}
-          rightAnswers={rightAnswer}
+          rightAnswer={rightAnswer}
+          currentQuestion={currentQuestion}
         />
       </Question>
     </div>
