@@ -8,7 +8,7 @@ export default function Answers({ answers, showNextQuestion }) {
       {answers.map((answer, index) => (
         <li key={index} className="answer">
           <button className="" onClick={showNextQuestion}>
-            {answer}
+            {answer.text}
           </button>
         </li>
       ))}
