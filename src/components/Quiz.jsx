@@ -57,7 +57,7 @@ export default function Quiz() {
   };
 
   if (showSummary) {
-    //mostra il summary quando showSummary è true
+    //mostra il summary quando showSummary è true (cioè quando è finito il tempo)
     return <Summary />;
   }
 
