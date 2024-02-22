@@ -46,8 +46,14 @@ export default function Quiz() {
 
   //non deve mostrarti il summary ma mandarti alla prossima domanda
   const handleTimeGong = () => {
-    //mostra il summary appena arriviamo al "gong"
-    setShowSummary(true);
+    //se la domanda corrente è minore della lunghezza dell'array di domande
+    if (currentQuestion < QUESTIONS.length - 1) {
+      //restituiamo la domanda successiva
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      //finite le domande restituiamo il summary
+      setShowSummary(true);
+    }
   };
 
   if (showSummary) {
