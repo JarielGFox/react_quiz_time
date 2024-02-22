@@ -1,7 +1,7 @@
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions.js";
 
-export default function Summary() {
+export default function Summary({ rightAnswer }) {
   return (
     <div id="summary">
       <img src={quizCompleteImg} alt="Trophy icon" />
@@ -12,11 +12,11 @@ export default function Summary() {
           <span className="text">skipped</span>
         </p>
         <p>
-          <span className="number">0 %</span>
+          <span className="number">{rightAnswer} %</span>
           <span className="text">answered correctly</span>
         </p>
         <p>
-          <span className="number">100 %</span>
+          <span className="number">0 %</span>
           <span className="text">answered incorrectly</span>
         </p>
       </div>

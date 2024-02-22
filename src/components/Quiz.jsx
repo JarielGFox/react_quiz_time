@@ -15,13 +15,20 @@ export default function Quiz() {
   const [showSummary, setShowSummary] = useState(false);
   //stato per tenere traccia delle domande selezionate dall'utente
   const [rightAnswer, setRightAnswer] = useState([]);
+  //stato per capire se l'utente ha risposto o no
+  const [hasAnswered, setHasAnswered] = useState(false);
 
   //funzione per passare alla domanda successiva
   function goToNextQuestion() {
     //controllo se ho raggiunto l'ultima domanda
     if (currentQuestion < QUESTIONS.length - 1) {
       //restituiamo la domanda successiva basata sull'ultimo update dello stato
-      setCurrentQuestion(currentQuestion + 1);
+      setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1);
+        setHasAnswered(false);
+      }, 3000);
+
+      //riabilitiamo la risposta per le successive domande
     } else {
       setShowSummary(true);
     }
@@ -29,6 +36,11 @@ export default function Quiz() {
 
   //approccio per memorizzare le risposte dell'utente: funzione con due parametri, id e risposta, uso del prev in setRightAnswer per tenere traccia delle risposte, return di COPIA di array di filtered answers con oggetto dentro che punta la risposta corretta (vedi esempio Simone se non ricordi sintassi)
   function handleAnswerClick(questionId, answer) {
+    //controllo se l'utente ha risposto
+    if (hasAnswered) return;
+    //disabilitiamo ulteriori risposte
+    setHasAnswered(true);
+    //se hai già risposto non deve più cliccare sulla stessa domanda
     setRightAnswer((prevAnswers) => {
       const filteredAnswers = prevAnswers.filter(
         (a) => a.questionId !== questionId
@@ -58,7 +70,7 @@ export default function Quiz() {
 
   if (showSummary) {
     //mostra il summary quando showSummary è true (cioè quando è finito il tempo)
-    return <Summary />;
+    return <Summary rightAnswer={rightAnswer} />;
   }
 
   return (
@@ -72,6 +84,7 @@ export default function Quiz() {
         <Answers
           // passiamo le risposte
           answers={QUESTIONS[currentQuestion].answers}
+          hasAnswered={hasAnswered}
           showNextQuestion={goToNextQuestion}
           onAnswerClick={handleAnswerClick}
           rightAnswer={rightAnswer}
