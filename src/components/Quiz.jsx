@@ -8,6 +8,8 @@ import Summary from "./Summary.jsx";
 //to do per domani: fare un controllo quando si clicca o no, Click --> reset Barra --> colore bottone ---> prossima domanda
 //non clicco > prossima domanda, clicco, feedback visivo
 
+//la funzione di shuffling tale e quale  acom'è ora anche se ovviamente con le variabili del caso in Quiz.jsx, passare la props ad Answers ed invocare su goToNextQuestion dopo che ha cambiato l'indice della domanda corrente
+
 export default function Quiz() {
   //stato per estrapolare la domanda
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -18,6 +20,11 @@ export default function Quiz() {
   //stato per capire se l'utente ha risposto o no
   const [hasAnswered, setHasAnswered] = useState(false);
 
+  function shuffleAnswer() {
+    QUESTIONS[currentQuestion].answers.sort(() => Math.random() - 0.5);
+    QUESTIONS[currentQuestion].shuffled = true;
+  }
+
   //funzione per passare alla domanda successiva
   function goToNextQuestion() {
     //controllo se ho raggiunto l'ultima domanda
@@ -26,6 +33,7 @@ export default function Quiz() {
       setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1);
         setHasAnswered(false);
+        shuffleAnswer();
       }, 3000);
 
       //riabilitiamo la risposta per le successive domande
@@ -45,6 +53,7 @@ export default function Quiz() {
       const filteredAnswers = prevAnswers.filter(
         (a) => a.questionId !== questionId
       );
+
       return [
         ...filteredAnswers,
         {
@@ -56,7 +65,7 @@ export default function Quiz() {
     });
   }
 
-  //non deve mostrarti il summary ma mandarti alla prossima domanda
+  //allo scadere del tempo ti sbatte alla prossima domanda
   const handleTimeGong = () => {
     //se la domanda corrente è minore della lunghezza dell'array di domande
     if (currentQuestion < QUESTIONS.length - 1) {
@@ -74,6 +83,15 @@ export default function Quiz() {
       <Summary rightAnswer={rightAnswer} totalQuestions={QUESTIONS.length} />
     );
   }
+
+  if (
+    typeof QUESTIONS[currentQuestion].shuffled === "undefined" ||
+    !QUESTIONS[currentQuestion].shuffled
+  ) {
+    shuffleAnswer();
+  }
+
+  console.log(QUESTIONS[currentQuestion].shuffled);
 
   return (
     <div id="quiz">

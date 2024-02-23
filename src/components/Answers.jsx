@@ -8,14 +8,10 @@ export default function Answers({
   rightAnswer,
   currentQuestion,
 }) {
-  const shuffleMyAnswers = answers.sort((a, b) => Math.random(a, b) - 0.2);
-
-  console.log(shuffleMyAnswers);
-
   return (
     <ul id="answers">
       {/* key nel li che prende index */}
-      {shuffleMyAnswers.map((answer, index) => {
+      {answers.map((answer, index) => {
         //determiniamo se l'utente ha risposto
         let isSelected = rightAnswer && rightAnswer.text === answer.text;
 
