@@ -21,7 +21,9 @@ export default function Quiz() {
   const [hasAnswered, setHasAnswered] = useState(false);
 
   function shuffleAnswer() {
+    //andiamo a mischiare le risposte tramite metodo sort()
     QUESTIONS[currentQuestion].answers.sort(() => Math.random() - 0.5);
+    //assegnamo una chiave manualmente impostata a true
     QUESTIONS[currentQuestion].shuffled = true;
   }
 
@@ -85,6 +87,7 @@ export default function Quiz() {
   }
 
   if (
+    //se la chiave della domanda corrente è undefined o diversa da true, mischia le risposte
     typeof QUESTIONS[currentQuestion].shuffled === "undefined" ||
     !QUESTIONS[currentQuestion].shuffled
   ) {
