@@ -8,18 +8,14 @@ export default function Answers({
   rightAnswer,
   currentQuestion,
 }) {
-  //funzione per mescolare le risposte (Fisher-Yates puppami la fava)
-  const shuffleAnswers = () => {
-    return answers.sort(() => Math.random() - 0.2);
-  };
+  const shuffleMyAnswers = answers.sort((a, b) => Math.random(a, b) - 0.2);
 
-  //salviamoci la nostra funzioncina per mescolare, in una variabile
-  const shuffledAnswers = shuffleAnswers();
+  console.log(shuffleMyAnswers);
 
   return (
     <ul id="answers">
       {/* key nel li che prende index */}
-      {shuffledAnswers.map((answer, index) => {
+      {shuffleMyAnswers.map((answer, index) => {
         //determiniamo se l'utente ha risposto
         let isSelected = rightAnswer && rightAnswer.text === answer.text;
 
