@@ -70,7 +70,9 @@ export default function Quiz() {
 
   if (showSummary) {
     //mostra il summary quando showSummary è true (cioè quando è finito il tempo)
-    return <Summary rightAnswer={rightAnswer} />;
+    return (
+      <Summary rightAnswer={rightAnswer} totalQuestions={QUESTIONS.length} />
+    );
   }
 
   return (
