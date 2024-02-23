@@ -87,7 +87,7 @@ export default function Quiz() {
   }
 
   if (
-    //se la chiave della domanda corrente è undefined o diversa da true, mischia le risposte
+    //se la chiave della domanda corrente è undefined o diversa da true, esegui la funzione shuffleAnswers()
     typeof QUESTIONS[currentQuestion].shuffled === "undefined" ||
     !QUESTIONS[currentQuestion].shuffled
   ) {
