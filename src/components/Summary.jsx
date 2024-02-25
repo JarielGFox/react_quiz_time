@@ -1,23 +1,24 @@
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions.js";
+const totalQuestions = QUESTIONS.length;
 
-export default function Summary({ rightAnswer }) {
+
+export default function Summary({ rightAnswers }) {
   //inseriamo in una variabile l'array delle domande
-  const totalQuestions = QUESTIONS.length;
 
   //filtriamo le domande corrette passate dal componente Quiz schiaffandole in correctAnswers
-  const correctAnswers = rightAnswer.filter(
+  const correctAnswers = rightAnswers.filter(
     (answer) => answer.isCorrect
   ).length;
 
   //filtriamo le domande diverse da answer.isCorrect e le mettiamo in incorrectAnswers
-  const incorrectAnswers = rightAnswer.filter(
+  const incorrectAnswers = rightAnswers.filter(
     (answer) => !answer.isCorrect
   ).length;
 
   //creiamo una variabile skippedQuestions che corrisponde al totale delle domande meno le risposte corrette
-  const skippedQuestions = totalQuestions - rightAnswer.length;
-
+  const skippedQuestions = totalQuestions - rightAnswers.length;
+  console.log("MATH 👿", totalQuestions, correctAnswers.length, incorrectAnswers.length, skippedQuestions)
   return (
     <div id="summary">
       <img src={quizCompleteImg} alt="Trophy icon" />
@@ -48,7 +49,7 @@ export default function Summary({ rightAnswer }) {
       </div>
       <ol>
         {QUESTIONS.map((question, index) => {
-          const result = rightAnswer.find((r) => r.questionId === question.id);
+          const result = rightAnswers.find((r) => r.questionId === question.id);
           const answerGiven = result ? result.answer : "Skipped";
           const cssClass = result
             ? result.isCorrect

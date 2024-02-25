@@ -5,7 +5,7 @@ export default function Answers({
   hasAnswered,
   showNextQuestion,
   onAnswerClick,
-  rightAnswer,
+  rightAnswers,
   currentQuestion,
 }) {
   return (
@@ -13,15 +13,14 @@ export default function Answers({
       {/* key nel li che prende index */}
       {answers.map((answer, index) => {
         //determiniamo se l'utente ha risposto
-        let isSelected = rightAnswer && rightAnswer.text === answer.text;
+        let isSelected = rightAnswers && rightAnswers.text === answer.text;
 
         //determiniamo se l'utente ha selezionato la risposta corretta
         const isCorrect = answer.correct;
 
         //applichiamo la classe corretta per il feedback visivo
-        const answerClasses = `${isSelected ? "selected" : ""} ${
-          hasAnswered ? (isCorrect ? "correct" : "wrong") : ""
-        }`;
+        const answerClasses = `${isSelected ? "selected" : ""} ${hasAnswered ? (isCorrect ? "correct" : "wrong") : ""
+          }`;
 
         return (
           <li key={index} className="answer">
