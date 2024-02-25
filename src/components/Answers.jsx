@@ -1,4 +1,4 @@
-// TODO: you need to import here 1 hooks
+import { useRef } from "react";
 
 export default function Answers({
   answers,
@@ -8,10 +8,17 @@ export default function Answers({
   rightAnswers,
   currentQuestion,
 }) {
+  const shuffledAnswers = useRef()
+
+  if (!shuffledAnswers.current) {
+    shuffledAnswers.current = [...answers];
+    shuffledAnswers.current.sort(() => Math.random() - 0.5)
+  }
+
   return (
     <ul id="answers">
       {/* key nel li che prende index */}
-      {answers.map((answer, index) => {
+      {shuffledAnswers.current.map((answer, index) => {
         //determiniamo se l'utente ha risposto
         let isSelected = rightAnswers && rightAnswers.text === answer.text;
 

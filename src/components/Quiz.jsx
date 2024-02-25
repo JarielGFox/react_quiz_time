@@ -1,5 +1,5 @@
 // TODO: you need to import here 2 different hooks and two components
-import { useState } from "react";
+import { useState, useRef } from "react";
 import QUESTIONS from "../questions.js";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
@@ -16,6 +16,7 @@ export default function Quiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = QUESTIONS[currentQuestionIndex];
 
+
   //stato per mostrare il summary all'ultima domanda o allo scadere del tempo
   const [showSummary, setShowSummary] = useState(false);
   //stato per tenere traccia delle domande selezionate dall'utente
@@ -23,12 +24,6 @@ export default function Quiz() {
   //stato per capire se l'utente ha risposto o no
   const [hasAnswered, setHasAnswered] = useState(false);
 
-  function shuffleAnswer() {
-    //andiamo a mischiare le risposte tramite metodo sort()
-    currentQuestion.answers.sort(() => Math.random() - 0.5);
-    //assegnamo una chiave manualmente impostata a true
-    currentQuestion.shuffled = true;
-  }
 
   //funzione per passare alla domanda successiva
   function goToNextQuestion() {
@@ -39,7 +34,7 @@ export default function Quiz() {
       setTimeout(() => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setHasAnswered(false);
-        shuffleAnswer();
+        // shuffleAnswer();
       }, 3000);
 
       //riabilitiamo la risposta per le successive domande
@@ -91,14 +86,12 @@ export default function Quiz() {
     );
   }
 
-  if (
-    //se la chiave della domanda corrente è undefined o diversa da true, esegui la funzione shuffleAnswers()
-    !currentQuestion.shuffled
-  ) {
-    shuffleAnswer();
-  }
-
-  console.log(currentQuestion.shuffled);
+  // if (
+  //   //se la chiave della domanda corrente è undefined o diversa da true, esegui la funzione shuffleAnswers()
+  //   !currentQuestion.shuffled
+  // ) {
+  //   shuffleAnswer();
+  // }
 
   return (
     <div id="quiz">
